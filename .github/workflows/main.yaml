@@ -1,0 +1,24 @@
+name: Samannen
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: frontend-docker
+        uses: docker/build-push-action@v1
+        with:
+          path: ./frontend/dist
+          registry: ghcr.io
+          username: "eirikandre"
+          password: ${{ secrets.PUSH_TOKEN }}
+          repository: eirikandre/fredheim-mat-frontend
+          tags: 2.3.0
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          push: true
+          tags: eirikandre/samannen:latest
+          secrets: |
+            GIT_AUTH_TOKEN=${{ secrets.GITHUB_TOKEN }}
