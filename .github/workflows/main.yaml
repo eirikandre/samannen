@@ -6,10 +6,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Build and push
-        uses: docker/build-push-action@v6
-        with:
-          push: true
-          tags: eirikandre/samannen:latest
-          secrets: |
-            GIT_AUTH_TOKEN=${{ secrets.PUSH_TOKEN }}
+      -  uses: docker/build-push-action@v1
+         with:
+           path: ./
+           registry: ghcr.io
+           username: "eirikandre"
+           password: ${{ secrets.PUSH_TOKEN }}
+           repository: eirikandre/samannen
+           tags: 1.0.0
